@@ -1,13 +1,37 @@
 package com.travisci.springboot.matjawor.app;
 
-import org.springframework.boot.SpringApplication;
+import java.util.Arrays;
+
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.Bean;
+import org.springframework.boot.SpringApplication;
 
 @SpringBootApplication
 public class AppApplication {
+	private static Logger LOG = LoggerFactory.getLogger(SpringBootConsoleApplication.class);
+
 
 	public static void main(String[] args) {
+		LOG.info("STARTING MY APP");
 		SpringApplication.run(AppApplication.class, args);
+		LOG.info("APPLICATION FINISHED");
+	}
+
+	@Bean
+	public CommandLineRunner commandLineRunner(ApplicationContext ctx) {
+		return args -> {
+
+			System.out.println("Beans list provided by Springboot:");
+
+			String[] beanNames = ctx.getBeanDefinitionNames();
+			Arrays.sort(beanNames);
+			for (String beanName : beanNames) {
+				System.out.println(beanName);
+			}
+
+		};
 	}
 
 }
