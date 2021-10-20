@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.boot.SpringApplication;
@@ -23,16 +24,34 @@ public class AppApplication {
 
 	public static void main(String[] args) {
 		LOG.info("STARTING MY APP");
-		SpringApplication.run(AppApplication.class, args);
+		ConfigurableApplicationContext ctx = SpringApplication.run(AppApplication.class, args);
 		LOG.info("APPLICATION FINISHED");
+		ctx.close()
 	}
 
 	@Bean
-    @Profile(value="dev")
+    @Profile(value="prod")
 	public CommandLineRunner commandLineRunner(ApplicationContext ctx) {
 		return args -> {
-            System.out.println("IN DEVELOPMENT");
-            System.out.println("MESSAGE FROM DEV PROPERTIES");
+            System.out.println("IN PRODUCTION");
+            System.out.println("MESSAGE FROM PROD PROPERTIES");
+
+			System.out.println("Beans list provided by Springboot:");
+
+			String[] beanNames = ctx.getBeanDefinitionNames();
+			Arrays.sort(beanNames);
+			for (String beanName : beanNames) {
+				System.out.println(beanName);
+			}
+		};
+	}
+
+	@Bean
+	@Profile(value="dev")
+	public CommandLineRunner commandLineRunner(ApplicationContext ctx) {
+		return args -> {
+			System.out.println("IN DEVELOPMENT");
+			System.out.println("MESSAGE FROM DEV PROPERTIES");
 
 			System.out.println("Beans list provided by Springboot:");
 
