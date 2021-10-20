@@ -4,7 +4,7 @@ jdk:
 jobs:
   includes:
   - stage: test
-    script: "./gradlew clean test"
+    script: ./gradlew clean test --args='--spring.profiles.active=dev
   - stage: run locally and test healthcheck
     script: ./gradlew bootRun --args='--spring.profiles.active=dev'
 notifications:
