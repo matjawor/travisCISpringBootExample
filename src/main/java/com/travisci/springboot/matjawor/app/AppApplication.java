@@ -45,21 +45,18 @@ public class AppApplication {
 			}
 		};
 	}
+}
 
-	@Bean
-	@Profile(value="dev")
-	public CommandLineRunner commandLineRunner(ApplicationContext ctx) {
-		return args -> {
-			System.out.println("IN DEVELOPMENT");
-			System.out.println("MESSAGE FROM DEV PROPERTIES");
+@Component
+@Profile(value="dev")
+class MyCustomRunner implements CommandLineRunner {
 
-			System.out.println("Beans list provided by Springboot:");
+	@Value("${message}")
+	private String message;
 
-			String[] beanNames = ctx.getBeanDefinitionNames();
-			Arrays.sort(beanNames);
-			for (String beanName : beanNames) {
-				System.out.println(beanName);
-			}
-		};
+	@Override
+	public void run(String... args) throws Exception {
+
+		System.out.println("MESSAGE FROM DEV: " + message);
 	}
 }
