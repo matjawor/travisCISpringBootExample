@@ -44,7 +44,7 @@ public class AppApplication {
 			for (String beanName : beanNames) {
 				System.out.println(beanName);
 			}
-			ctx.close()
+			ctx.close();
 		};
 	}
 }
