@@ -1,5 +1,7 @@
 package com.travisci.springboot.matjawor.app;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import java.util.Arrays;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,6 +11,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.context.annotation.Profile;
+import org.springframework.core.env.Environment;
+import org.springframework.stereotype.Component;
 
 @SpringBootApplication
 public class AppApplication {
@@ -35,5 +41,20 @@ public class AppApplication {
 
 		};
 	}
+}
 
+@Component
+@Profile(value="dev")
+class MyRunner2 implements CommandLineRunner {
+
+	@Value("${message}")
+	private String message;
+
+	@Override
+	public void run(String... args) throws Exception {
+
+		System.out.println("IN DEVELOPMENT");
+		System.out.println("MESSAGE FROM DEV PROPERTIES IS " + message);
+		SpringApplication.exit(ctx, () -> 0);
+	}
 }
