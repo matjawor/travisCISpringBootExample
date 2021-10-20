@@ -47,7 +47,7 @@ public class AppApplication {
 	}
 }
 
-@Bean
+@Component
 @Profile(value="dev")
 class MyCustomRunner implements CommandLineRunner {
 
