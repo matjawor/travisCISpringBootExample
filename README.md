@@ -12,7 +12,7 @@
 - send always notification to slack channel with default template
 
 ## travis cli ##
-- strongly recommended to encrypt secrets e.g. via travis cli tool
+- strongly recommended to encrypt secrets e.g. via travis cli tool that appends changed properties to .travis.yml
 
 ## heroku deployment ##
 //TODO
