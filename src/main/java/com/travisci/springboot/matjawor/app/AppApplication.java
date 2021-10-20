@@ -26,7 +26,6 @@ public class AppApplication {
 		LOG.info("STARTING MY APP");
 		ConfigurableApplicationContext ctx = SpringApplication.run(AppApplication.class, args);
 		LOG.info("APPLICATION FINISHED");
-//		ctx.close();
 	}
 
 	@Bean
@@ -58,7 +57,6 @@ class MyCustomRunner implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-
 		System.out.println("MESSAGE FROM DEV: " + message);
 		context.close();
 	}
