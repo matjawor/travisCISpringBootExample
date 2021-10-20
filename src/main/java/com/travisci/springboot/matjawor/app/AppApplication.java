@@ -48,7 +48,9 @@ public class AppApplication {
 
 @Bean
 @Profile(value="dev")
-class MyCustomRunner implements CommandLineRunner { ApplicationContext ctx )
+class MyCustomRunner implements CommandLineRunner {
+	@Autowired
+	private ApplicationContext context;
 
 	@Value("${message}")
 	private String message;
@@ -58,5 +60,5 @@ class MyCustomRunner implements CommandLineRunner { ApplicationContext ctx )
 
 		System.out.println("MESSAGE FROM DEV: " + message);
 	}
-	ctx.close();
+	context.close()
 }
