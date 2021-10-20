@@ -58,5 +58,5 @@ class MyCustomRunner implements CommandLineRunner { ApplicationContext ctx )
 
 		System.out.println("MESSAGE FROM DEV: " + message);
 	}
-	ctx.close()
+	ctx.close();
 }
