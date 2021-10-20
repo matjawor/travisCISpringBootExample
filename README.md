@@ -2,14 +2,14 @@
 ## application ##
 - **java 11**
 - app created from template of spring initializr https://start.spring.io/ with improvements
-### junit tests ###
+#### junit tests ####
 //TODO
-### junit reports ###
+#### junit reports ####
 //TODO
 ## travis ci ##
 - pipeline is triggered by push events or pull requests to main branch
 ## travis ci config ##
-### include stages ###
+#### include stages ####
 - on default clone main branch
 - run gradle tests on the project
 - run the application on spring dev profile (application-dev.properties) and close it gracefully
