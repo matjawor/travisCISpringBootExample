@@ -48,17 +48,15 @@ public class AppApplication {
 
 @Bean
 @Profile(value="dev")
-class MyCustomRunner implements CommandLineRunner {
-	@Autowired
-	private ApplicationContext context;
+class MyCustomRunner implements CommandLineRunner ( ApplicationContext ctx ){
 
 	@Value("${message}")
 	private String message;
 
 	@Override
-	public void run(String... args) throws Exception {
-
-		System.out.println("MESSAGE FROM DEV: " + message);
-	}
-	context.close();
+	public void run(String...args)throws Exception{
+		System.out.println("MESSAGE FROM DEV: "+message);
+		ApplicationContext appCtx=ctx.getBean(AppApplication.class);
+		appCtx.close();
+		}
 }
