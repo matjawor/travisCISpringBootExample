@@ -26,7 +26,7 @@ public class AppApplication {
 		LOG.info("STARTING MY APP");
 		ConfigurableApplicationContext ctx = SpringApplication.run(AppApplication.class, args);
 		LOG.info("APPLICATION FINISHED");
-		ctx.close()
+		ctx.close();
 	}
 
 	@Bean
