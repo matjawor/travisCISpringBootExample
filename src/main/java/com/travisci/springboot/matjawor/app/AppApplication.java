@@ -28,8 +28,14 @@ public class AppApplication {
 	}
 
 	@Bean
+    @Profile(value="dev")
 	public CommandLineRunner commandLineRunner(ApplicationContext ctx) {
 		return args -> {
+            @Value("${message}")
+            private String message;
+
+            System.out.println("IN DEVELOPMENT");
+            System.out.println("MESSAGE FROM DEV PROPERTIES IS " + message);
 
 			System.out.println("Beans list provided by Springboot:");
 
@@ -38,23 +44,7 @@ public class AppApplication {
 			for (String beanName : beanNames) {
 				System.out.println(beanName);
 			}
-
+			ctx.close()
 		};
-	}
-}
-
-@Component
-@Profile(value="dev")
-class MyRunner2 implements CommandLineRunner {
-
-	@Value("${message}")
-	private String message;
-
-	@Override
-	public void run(String... args) throws Exception {
-
-		System.out.println("IN DEVELOPMENT");
-		System.out.println("MESSAGE FROM DEV PROPERTIES IS " + message);
-		SpringApplication.exit(ctx, () -> 0);
 	}
 }
