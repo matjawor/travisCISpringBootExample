@@ -58,6 +58,7 @@ class MyCustomRunner implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		System.out.println("MESSAGE FROM DEV: " + message);
+		System.out.println("AFTER SUCCESFULLY RUN APP WILL BE CLOSE);
 		context.close();
 	}
 }
