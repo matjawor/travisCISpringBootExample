@@ -5,6 +5,8 @@ jobs:
   includes:
   - stage: test
     script: ./gradlew clean test
+    after_success:
+    - ./gradlew coveralls
   - stage: run locally and test healthcheck
     script: ./gradlew bootRun --args='--spring.profiles.active=dev'
 notifications:
