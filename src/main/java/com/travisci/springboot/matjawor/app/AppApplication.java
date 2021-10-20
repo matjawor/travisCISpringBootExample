@@ -48,7 +48,7 @@ public class AppApplication {
 
 @Bean
 @Profile(value="dev")
-class MyCustomRunner implements CommandLineRunner ( ApplicationContext ctx ){
+class MyCustomRunner implements CommandLineRunner {
 
 	@Value("${message}")
 	private String message;
@@ -56,7 +56,7 @@ class MyCustomRunner implements CommandLineRunner ( ApplicationContext ctx ){
 	@Override
 	public void run(String...args)throws Exception{
 		System.out.println("MESSAGE FROM DEV: "+message);
-		ApplicationContext appCtx=ctx.getBean(AppApplication.class);
+		ApplicationContext appCtx = ctx.getBean(AppApplication.class);
 		appCtx.close();
 		}
 }
