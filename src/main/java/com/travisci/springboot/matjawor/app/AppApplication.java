@@ -31,9 +31,6 @@ public class AppApplication {
     @Profile(value="dev")
 	public CommandLineRunner commandLineRunner(ApplicationContext ctx) {
 		return args -> {
-            @Value("${message}")
-            private String message;
-
             System.out.println("IN DEVELOPMENT");
             System.out.println("MESSAGE FROM DEV PROPERTIES IS " + message);
 
@@ -44,7 +41,6 @@ public class AppApplication {
 			for (String beanName : beanNames) {
 				System.out.println(beanName);
 			}
-			ctx.close();
 		};
 	}
 }
