@@ -32,7 +32,7 @@ public class AppApplication {
 	public CommandLineRunner commandLineRunner(ApplicationContext ctx) {
 		return args -> {
             System.out.println("IN DEVELOPMENT");
-            System.out.println("MESSAGE FROM DEV PROPERTIES IS " + message);
+            System.out.println("MESSAGE FROM DEV PROPERTIES");
 
 			System.out.println("Beans list provided by Springboot:");
 
