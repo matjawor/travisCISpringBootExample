@@ -30,3 +30,5 @@
 ## heroku deployment ##
 //TODO
 - based on spring prod profile (application-prod.properties)
+
+[![Coverage Status](https://coveralls.io/repos/github/matjawor/travisCISpringBootExample/badge.svg?branch=main)](https://coveralls.io/github/matjawor/travisCISpringBootExample?branch=main)
