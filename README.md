@@ -3,9 +3,14 @@
 - **java 11**
 - app created from template of spring initializr https://start.spring.io/ with improvements
 #### junit tests ####
-//TODO
+- run by gradle task test
 #### junit reports ####
-//TODO
+- created by gradle task test
+#### jacoco reports ####
+- created by gradle task jacocoTestReport within plugin jacoco on the basis of results of junit tests with providing of code coverage metrics
+#### coveralls ####
+- jacoco reports are deployed to coveralls.io
+- coveralls provides test coverage history and statistics of a project
 ## travis ci ##
 - pipeline is triggered by push events or pull requests to main branch
 ## travis ci config ##
