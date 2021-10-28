@@ -1,2 +1,10 @@
+plugins {
+    id 'application'
+}
+
+application {
+    mainClass = 'com.travisci.module1'
+}
+
 version = '0.0.1-module1-SNAPSHOT'
 
