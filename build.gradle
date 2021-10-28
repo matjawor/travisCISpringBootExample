@@ -36,3 +36,23 @@ jacocoTestReport {
 coveralls {
 	jacocoReportPath 'build/reports/jacoco/test/jacocoTestReport.xml'
 }
+
+// on root context with -PsubprojectName parameter
+tasks.register('getSubprojectVersion') {
+	doLast {
+		subprojects.find {if (it.name == subprojectName) {
+			println (it.version)
+		} }
+	}
+}
+
+// on subproject context with :subprojectName:taskName
+subprojects {
+	tasks.register('getProjectVersion') {
+		doLast {
+			println(project.version)
+		}
+	}
+}
+
+
