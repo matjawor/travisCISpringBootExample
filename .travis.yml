@@ -8,17 +8,13 @@ jobs:
   - stage: build jar build dockerfile and run
     script: ./gradlew bootJar
     after_success:
-    - cat /etc/hosts
-    - ifconfig
-    - hostname
-    - ping -c 5 localhost
-    - netstat -ltpa
     - docker build -t myapp:snapshot -f ./ci/docker/dockerfile .
     - docker run -d -p 0.0.0.0:8080:8080 --name myapp myapp:snapshot
     - sleep 60 && docker logs myapp
+    - netstat -ltpa | grep 8080
     - docker ps -a
     - echo 'checking healthcheck...' && sleep 10 && curl -v localhost:8080
-    - curl localhost:8080 && echo -e "\nhealthcheck finished"
+    - curl localhost:8080 && (echo -e "\nHEALTHY" || echo -e "\nUNHEALTHY")
   - stage: test
     script: ./gradlew clean test
     after_success:
