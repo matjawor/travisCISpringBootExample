@@ -1,0 +1,8 @@
+FROM openjdk:11
+RUN mkdir /myApp/
+COPY /build/libs/app-0.0.1-SNAPSHOT.jar /myApp/
+RUN useradd appuser
+RUN chown -R appuser:appuser /myApp
+USER appuser
+WORKDIR /myApp/
+CMD env JAVA_OPTS='Xmx2000m' java -jar app-0.0.1-SNAPSHOT.jar
