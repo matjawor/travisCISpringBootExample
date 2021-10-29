@@ -19,7 +19,9 @@ jobs:
     - netstat -ltpa
     - docker ps -a
     - docker exec -it myapp sh -c "sleep 30 && curl --version && curl localhost:8080"
-    - docker exec -it myapp sh -c "sleep 60 && curl wp.pl && curl localhost:8080"
+    - docker exec -it myapp sh -c "curl 127.0.0.1:8080"
+    - docker exec -it myapp sh -c "curl $(hostname):8080"
+#    - docker exec -it myapp sh -c "sleep 60 && curl wp.pl && curl localhost:8080"
   - stage: test
     script: ./gradlew clean test
     after_success:
