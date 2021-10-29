@@ -19,7 +19,6 @@ jobs:
     - netstat -ltpa
     - docker ps -a
     - echo 'checking healthcheck...' && sleep 120 && curl -v localhost:8080
-    - docker exec -it myapp bash -c "sleep 60 && curl -v localhost:8080 > /tmp/tmpCurl && cat /tmp/tmpCurl
 #    - docker exec -it myapp sh -c "sleep 60 && curl wp.pl && curl localhost:8080"
   - stage: test
     script: ./gradlew clean test
