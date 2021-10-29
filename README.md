@@ -12,7 +12,7 @@
 - jacoco reports are deployed to coveralls.io
 - coveralls provides test coverage history and statistics of a project
 - **current coverage**
-[![Coverage Status](https://coveralls.io/repos/github/matjawor/travisCISpringBootExample/badge.svg?branch=main)](https://coveralls.io/github/matjawor/travisCISpringBootExample?branch=main)
+[![Coverage Status](https://coveralls.io/repos/github/matjawor/travisCISpringBootExample/badge.png?branch=main)](https://coveralls.io/github/matjawor/travisCISpringBootExample?branch=main)
 ### modules (subprojects) in main project ###
 - modules1 with its own build.gradle
 ## gradle ##
