@@ -11,7 +11,7 @@ jobs:
     - cat /etc/hosts
     - ifconfig
     - hostname
-    - ping localhost -n 5
+    - ping -c 5 localhost
     - netstat -ltpa
     - docker build -t myapp:snapshot -f ./ci/docker/dockerfile .
     - docker run -d -p 0.0.0.0:8080:8080 --name myapp myapp:snapshot
