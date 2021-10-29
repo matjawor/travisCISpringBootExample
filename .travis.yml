@@ -10,9 +10,9 @@ jobs:
     after_success:
     - docker build -t myapp:snapshot -f ./ci/docker/dockerfile .
     - docker run -d -p 127.0.0.1:4567:8080 --name myapp myapp:snapshot
-    - docker logs myapp
+    - sleep 60 && docker logs myapp
     - docker ps -a
-    - docker exec -it myapp sh -c "sleep 30 && curl --version && curl localhost:4567"
+    - docker exec -it myapp sh -c "sleep 30 && curl --version && curl 127.0.0.1:4567"
   - stage: test
     script: ./gradlew clean test
     after_success:
