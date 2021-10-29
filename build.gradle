@@ -40,9 +40,6 @@ coveralls {
 
 heroku {
 	appName = "mjApp"
-}
-
-heroku {
 	includes = ["build/libs/app-0.0.1-SNAPSHOT.jar"]
 	includeBuildDir = false
 	jdkVersion = 11
