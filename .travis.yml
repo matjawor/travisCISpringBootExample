@@ -8,9 +8,11 @@ jobs:
   - stage: build jar build dockerfile and run
     script: ./gradlew bootJar
     after_success:
+    - netstat -ltpa
     - docker build -t myapp:snapshot -f ./ci/docker/dockerfile .
-    - docker run -d -p 127.0.0.1:4567:8080 --name myapp myapp:snapshot
+    - docker run -d -p 0.0.0.0:8080:8080 --name myapp myapp:snapshot
     - sleep 60 && docker logs myapp
+    - netstat -ltpa
     - docker ps -a
     - docker exec -it myapp sh -c "sleep 30 && curl --version && curl 127.0.0.1:4567"
   - stage: test
