@@ -7,8 +7,8 @@ jobs:
   includes:
   - stage: build jar build dockerfile and run
     script: ./gradlew bootJar
-    script: docker build -t myApp/snapshot -f /ci/docker/dockerfile .
-    script: docker run -d --name myApp myApp/snapshot
+    script: docker build -t myapp/snapshot -f /ci/docker/dockerfile .
+    script: docker run -d --name myapp myapp/snapshot
     script: docker ps -a
   - stage: test
     script: ./gradlew clean test
