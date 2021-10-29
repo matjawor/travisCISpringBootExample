@@ -2,6 +2,8 @@
 ## application ##
 - **java 11**
 - app created from template of spring initializr https://start.spring.io/ with improvements
+### modules (subprojects) in main project ###
+- modules1 with its own build.gradle
 #### junit tests ####
 - run by gradle task test
 #### junit reports ####
@@ -13,6 +15,13 @@
 - coveralls provides test coverage history and statistics of a project
 - **current coverage**
 [![Coverage Status](https://coveralls.io/repos/github/matjawor/travisCISpringBootExample/badge.svg?branch=main)](https://coveralls.io/github/matjawor/travisCISpringBootExample?branch=main)
+## gradle ##
+- plugin application with property mainClass to run main method within module1 context by ```./gradlew :subprojectName:run```
+- junit test plugin for root build.gradle
+- coveralls plugin as above
+- jacoco plugin as above
+- customized task getSubprojectVersion in root context with subprojectName properties as gradlew command parameter ```./gradlew getSuprojectVersion -PsubprojectName=name```
+- customized task getProjectVersion within subproject context by ```./gradlew :module1:getProjectVersion```
 
 ## travis ci ##
 - pipeline is triggered by push events or pull requests to main branch
