@@ -16,10 +16,9 @@ jobs:
     - docker build -t myapp:snapshot -f ./ci/docker/dockerfile .
     - docker run -d -p 0.0.0.0:8080:8080 --name myapp myapp:snapshot
     - sleep 60 && docker logs myapp
-    - netstat -ltpa
     - docker ps -a
-    - echo 'checking healthcheck...' && sleep 120 && curl -v localhost:8080
-#    - docker exec -it myapp sh -c "sleep 60 && curl wp.pl && curl localhost:8080"
+    - echo 'checking healthcheck...' && sleep 10 && curl -v localhost:8080
+    - curl localhost:8080 && echo -e "\nhealthcheck finished"
   - stage: test
     script: ./gradlew clean test
     after_success:
