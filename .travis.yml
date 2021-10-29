@@ -9,8 +9,8 @@ jobs:
     script: ./gradlew bootJar
     after_success:
     - docker build -t myapp/snapshot -f /ci/docker/dockerfile .
-#    script: docker run -d --name myapp myapp/snapshot
-#    script: docker ps -a
+    - docker run -d --name myapp myapp/snapshot
+    - docker ps -a
   - stage: test
     script: ./gradlew clean test
     after_success:
