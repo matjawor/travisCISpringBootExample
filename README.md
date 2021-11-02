@@ -36,8 +36,10 @@
 - strongly recommended to encrypt secrets e.g. via travis cli tool that appends changed properties to .travis.yml
 
 ## docker ##
-//TODO
-- dockerfile
+- dockerfile in `ci/docker/dockerfile`
+
+## aws s3 with artifacts ##
+- s3 deploy section in `.travis.yml` configuration
 
 ## heroku deployment ##
 //TODO
