@@ -36,9 +36,15 @@
 - strongly recommended to encrypt secrets e.g. via travis cli tool that appends changed properties to .travis.yml
 
 ## docker ##
-- dockerfile in `ci/docker/dockerfile`
+- docker build image based on dockerfile in `ci/docker/dockerfile`
+- image tag myapp:snapshot
+- docker run with publishing port 8080 to the container's host
+// todo
+- push docker image to aws ecr
 
 ## aws s3 with artifacts ##
+- s3 bucket including archived artifacts i.e. application jar
+- dedicated aws user with essential permissions (aws IAM service) to s3 resource to handle travis ci deployment process
 - s3 deploy section in `.travis.yml` configuration
 
 ## heroku deployment ##
