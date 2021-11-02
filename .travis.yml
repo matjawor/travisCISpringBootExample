@@ -6,7 +6,7 @@ services:
 jobs:
   includes:
   - stage: build jar build dockerfile and run
-    script: ./gradlew bootJar
+    script: "./gradlew bootJar"
     after_success:
     - docker build -t myapp:snapshot -f ./ci/docker/dockerfile .
     - docker run -d -p 0.0.0.0:8080:8080 --name myapp myapp:snapshot
@@ -16,15 +16,23 @@ jobs:
     - echo 'checking healthcheck...' && sleep 10 && curl -v localhost:8080
     - curl localhost:8080 && (echo -e "\nHEALTHY" || echo -e "\nUNHEALTHY")
   - stage: test
-    script: ./gradlew clean test
+    script: "./gradlew clean test"
     after_success:
-    - ./gradlew coveralls
+    - "./gradlew coveralls"
   - stage: run locally and test healthcheck
-    script: ./gradlew bootRun --args='--spring.profiles.active=dev'
+    script: "./gradlew bootRun --args='--spring.profiles.active=dev'"
+deploy:
+  provider: s3
+  access_key_id: AKIARHOCOCRW35ZLV2X2
+  secret_access_key:
+    secure: qSpwPEhnboeHrwSe8VA0uBz7A3vbk+uz1AD/QKGz27+RS74Gy7IbCDfAR7hcfgCbYJoH+OqaRNYfV3DCGAYwleLGEUFxQaeQWpjrD9Xymy/2FchanYe95NGRop53f2SC76p+aP+AL8piQa/ngrcE/exQPu1c4sLnVJEpPt/5ceQPL/cT+wKWFfa38NoeVF5P+PRTLxoeFRHiXCfL8DbbDHEhrwk0/Q41KKYjZkcbM+gJw3o+aboXMPJMNYj7qNX9EzgxWY6ocYxLGyMQouOOeE0sfzH1MrhsMcA3kU49o1Qc5Ne0R51ZtKuGnGyfzA4euiCA73ftYCxT0BWGUersgzxKYtY1h5ILWBpAuQtscGhmN3ksJWnziT9HkGdw/IJKsLJ+fELPmO9n9y2uNNM7wi3cQcHxvu2bs+a2sozn6Lmqiz8SPwu8UADvGl9KQVfTlK8z5XnK1m2h+mhtuoab11FsQJje7Q1r1b6qo1aC8VBJpQSLvwVEPZLia5aXij8ciRSUnrfVZc/2szuiCwzpdkavj03H3/lS4tMSser37J2ghYLTqZmefGoEZU15gcsPrruGvM8Wsa+vJkHVdMLC5pp1gkMeNQF0a0Cds9hkpdnHUpH7knSm3yb/zdLe2zDmJfEPW4KVw11jg3y8+Z+47ZDCv/Vo3KGUgsCDo0rmV9M=
+  bucket: mj-artifactrepo
+  skip_cleanup: true
+  region: eu-central-1
+  local_dir: build/libs/
 notifications:
   slack:
     secure: Cos+hKPhu4kB5kaEVjGJxopg+yfmHZ46jcNToD1XkPxSotpZMbcCf07NA+FTmLVLqvWGv+FFh1IvlNlyUVHoiZ9bkJifah1v6B19vE7Xidqln2Erot8no7vEPZFCHHpFBaY8jzGPcsdPMr1yatZ7ygMQgXgGDsEk6rxzg+2ms0Oytp4QPRGumKq6qLlf+GaKNnobHTtjhtXWmn4CLxrNKJq62n1h/eH6J+St9LV7IFFm/8A3ZVVwZOKkNGouvkZsJr41sc9+mLEaLmNmN3Jr5iA2m4RduU3NE7i7y4BEdg+8n8JmHvjBlSwU/dcwVIh6/yEjomi3CQ/NsOCvDhiSXybJhmcpYpmrgALNerquec4XwW3+BPLDdj8CdhOsJPvJfO1EGpB0TPsgaeUTwKZftrHZmZj57G+Jlt4XdrXZWnNEsI99pIxrpKkjxjTGLWnPaDuJkEVi+EaPMLVTtO4oeZtUP1mDqiYrPyRzS3sOQd0tbveruggHLyrBEHgNI+mRoSLwrQquwFSGAR2S8dcvbBXl+BQmZzoFiiE0B8oKHFE1dw/GKMSa1QoTIjFCb6/aUoB7RP4El4nKxgDSxevujfKK/Lv5m6UAm/pNPw2+ebzyqRkgOY3lzcEBiKnpzIN/GW+v58lUIYLR7gY6oAxGpyijAsodw+a6/evfuoqAQEk=
 branches:
   only:
   - main
-
