@@ -15,23 +15,23 @@ jobs:
     - docker ps -a
     - echo 'checking healthcheck...' && sleep 10 && curl -v localhost:8080
     - curl localhost:8080 && (echo -e "\nHEALTHY" || echo -e "\nUNHEALTHY")
+    deploy:
+      provider: s3
+      access_key_id: AKIARHOCOCRW35ZLV2X2
+      secret_access_key:
+        secure: Kjaqgs5ZIK5pfTMZAuCOl8dLWZ80MpzZBSsrjFZqeYA/BG8c83xjVPZDvTSLAB8DjB2JMHgX10iFsbhlDrmu42v0eGkCLY5JYRE1zmDJb0fDFfla64tQnrSinoQpzhTuOpS724vPsMJo6Bzatqbk0tAZi82a7G5c4izPcMKKy86GN09MrmtpYfP+a9LyCyOpt8XlfAqO4wpt52JuluariDH1SX5+Jg0uVY/uF/jeRaPPMZbJjW4akMwzQtEaIfbye9oV33iko6L2Cxk4sbMff+ZdJW3gA7ZZueBfKNIAKd8FkKyV8lcCk9MCIdrizt+sC9ilKP2yCtA/oedqzmpCeESRNmgXEtD8UXWH/4BNukCoyBRiiScv5VkeVIe2ZontCdgw4g90m2+oGpX6C7V7UGY9ahcqf8bKbDs8jVE2tl8t2geZ70iylhOZnE+Fwx7iotHjTiwzk83GSCQvTdy8tN5bBpYCZYRAc0Ix6NKx7576+rMZSg46/Lr+nPr1L3enNdxwEu+NrXQq7RyXWqtnMRcMySSKDs+xh2MjzB5Ng052LjKEo184/bJuLMUe1lTrOA8S/2iV7TDynlM8pUfjKosMhDmW+xktjWVVtiesW4KC6VQuWqjQ6dur4RcXktaOlWQnQFN6IIk7zri/9MkX+5AJRhBuDHvSQzHKFevmoWY=
+      bucket: mj-artifactrepo
+      skip_cleanup: true
+      region: eu-central-1
+      local_dir: build/libs/
+      on:
+        branch: main
   - stage: test
     script: "./gradlew clean test"
     after_success:
     - "./gradlew coveralls"
   - stage: run locally and test healthcheck
     script: "./gradlew bootRun --args='--spring.profiles.active=dev'"
-deploy:
-  provider: s3
-  access_key_id: AKIARHOCOCRW35ZLV2X2
-  secret_access_key:
-    secure: Kjaqgs5ZIK5pfTMZAuCOl8dLWZ80MpzZBSsrjFZqeYA/BG8c83xjVPZDvTSLAB8DjB2JMHgX10iFsbhlDrmu42v0eGkCLY5JYRE1zmDJb0fDFfla64tQnrSinoQpzhTuOpS724vPsMJo6Bzatqbk0tAZi82a7G5c4izPcMKKy86GN09MrmtpYfP+a9LyCyOpt8XlfAqO4wpt52JuluariDH1SX5+Jg0uVY/uF/jeRaPPMZbJjW4akMwzQtEaIfbye9oV33iko6L2Cxk4sbMff+ZdJW3gA7ZZueBfKNIAKd8FkKyV8lcCk9MCIdrizt+sC9ilKP2yCtA/oedqzmpCeESRNmgXEtD8UXWH/4BNukCoyBRiiScv5VkeVIe2ZontCdgw4g90m2+oGpX6C7V7UGY9ahcqf8bKbDs8jVE2tl8t2geZ70iylhOZnE+Fwx7iotHjTiwzk83GSCQvTdy8tN5bBpYCZYRAc0Ix6NKx7576+rMZSg46/Lr+nPr1L3enNdxwEu+NrXQq7RyXWqtnMRcMySSKDs+xh2MjzB5Ng052LjKEo184/bJuLMUe1lTrOA8S/2iV7TDynlM8pUfjKosMhDmW+xktjWVVtiesW4KC6VQuWqjQ6dur4RcXktaOlWQnQFN6IIk7zri/9MkX+5AJRhBuDHvSQzHKFevmoWY=
-  bucket: mj-artifactrepo
-  skip_cleanup: true
-  region: eu-central-1
-  local_dir: build/libs/
-  on:
-    branch: main
 notifications:
   slack:
     secure: Cos+hKPhu4kB5kaEVjGJxopg+yfmHZ46jcNToD1XkPxSotpZMbcCf07NA+FTmLVLqvWGv+FFh1IvlNlyUVHoiZ9bkJifah1v6B19vE7Xidqln2Erot8no7vEPZFCHHpFBaY8jzGPcsdPMr1yatZ7ygMQgXgGDsEk6rxzg+2ms0Oytp4QPRGumKq6qLlf+GaKNnobHTtjhtXWmn4CLxrNKJq62n1h/eH6J+St9LV7IFFm/8A3ZVVwZOKkNGouvkZsJr41sc9+mLEaLmNmN3Jr5iA2m4RduU3NE7i7y4BEdg+8n8JmHvjBlSwU/dcwVIh6/yEjomi3CQ/NsOCvDhiSXybJhmcpYpmrgALNerquec4XwW3+BPLDdj8CdhOsJPvJfO1EGpB0TPsgaeUTwKZftrHZmZj57G+Jlt4XdrXZWnNEsI99pIxrpKkjxjTGLWnPaDuJkEVi+EaPMLVTtO4oeZtUP1mDqiYrPyRzS3sOQd0tbveruggHLyrBEHgNI+mRoSLwrQquwFSGAR2S8dcvbBXl+BQmZzoFiiE0B8oKHFE1dw/GKMSa1QoTIjFCb6/aUoB7RP4El4nKxgDSxevujfKK/Lv5m6UAm/pNPw2+ebzyqRkgOY3lzcEBiKnpzIN/GW+v58lUIYLR7gY6oAxGpyijAsodw+a6/evfuoqAQEk=
